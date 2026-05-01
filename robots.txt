@@ -1,0 +1,65 @@
+# robots.txt - Search Engine Crawler Instructions
+# PT. Holly Xaviera Export
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /pwa/
+Disallow: /*.sql$
+Disallow: /*.env$
+Disallow: /*.log$
+
+# Sitemap location
+Sitemap: https://www.hollyxavieraexport.com/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+Crawl-delay: 1
+
+# ==========================================================================
+# Specific Bot Rules
+# ==========================================================================
+
+# Google Bot (more aggressive crawling allowed)
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /pwa/
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /admin/
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /pwa/
+Crawl-delay: 2
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Disallow: /admin/
+Crawl-delay: 3
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 2
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: Exabot
+Disallow: /

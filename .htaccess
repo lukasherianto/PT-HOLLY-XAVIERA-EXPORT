@@ -1,0 +1,220 @@
+# .htaccess - Apache Configuration for PT. Holly Xaviera Export
+# Place this file in the root of your web directory
+
+# ==========================================================================
+# Enable Rewrite Engine
+# ==========================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect HTTP to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Redirect www to non-www (or vice versa)
+    RewriteCond %{HTTP_HOST} ^www\.hollyxavieraexport\.com [NC]
+    RewriteRule ^(.*)$ https://hollyxavieraexport.com/$1 [L,R=301]
+
+    # SPA Fallback - redirect all requests to index.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /index.html [L,QSA]
+</IfModule>
+
+# ==========================================================================
+# Security Headers
+# ==========================================================================
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "DENY"
+
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+    # Permissions Policy
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+
+    # HSTS (uncomment after SSL is working)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Remove server signature
+    Header always unset X-Powered-By
+    ServerSignature Off
+</IfModule>
+
+# ==========================================================================
+# File Access Protection
+# ==========================================================================
+
+# Deny access to hidden files and directories
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Deny access to sensitive files
+<FilesMatch "\.(env|sql|log|bak|config|ini|sh)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to composer/npm files
+<FilesMatch "(composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Require all denied
+</FilesMatch>
+
+# ==========================================================================
+# Caching Configuration
+# ==========================================================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # HTML - No cache
+    <FilesMatch "\.(html|htm)$">
+        ExpiresDefault A0
+        Header set Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate"
+        Header set Pragma "no-cache"
+    </FilesMatch>
+
+    # CSS & JavaScript - 1 year
+    <FilesMatch "\.(css|js)$">
+        ExpiresDefault A31536000
+        Header set Cache-Control "public, immutable"
+    </FilesMatch>
+
+    # Images - 1 year
+    <FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp|avif)$">
+        ExpiresDefault A31536000
+        Header set Cache-Control "public, immutable"
+    </FilesMatch>
+
+    # Fonts - 1 year
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        ExpiresDefault A31536000
+        Header set Cache-Control "public, immutable"
+    </FilesMatch>
+
+    # Manifest & Service Worker - No cache
+    <FilesMatch "(manifest\.json|sw\.js)$">
+        ExpiresDefault A0
+        Header set Cache-Control "no-store, no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ==========================================================================
+# Compression (Gzip)
+# ==========================================================================
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# ==========================================================================
+# CORS Configuration
+# ==========================================================================
+
+<IfModule mod_headers.c>
+    # Allow CORS for fonts
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# ==========================================================================
+# MIME Types
+# ==========================================================================
+
+<IfModule mod_mime.c>
+    AddType application/manifest+json manifest.json
+    AddType application/javascript js
+    AddType image/webp webp
+    AddType image/avif avif
+    AddType font/woff2 woff2
+</IfModule>
+
+# ==========================================================================
+# Directory Options
+# ==========================================================================
+
+# Disable directory listing
+Options -Indexes
+
+# Enable follow symlinks
+Options +FollowSymLinks
+
+# ==========================================================================
+# PHP Settings (if using PHP for any reason)
+# ==========================================================================
+
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log /var/log/php_errors.log
+    php_value upload_max_filesize 8M
+    php_value post_max_size 8M
+    php_value max_execution_time 60
+</IfModule>
+
+# ==========================================================================
+# Rate Limiting (requires mod_qos or mod_evasive)
+# ==========================================================================
+
+# Example with mod_evasive (install separately)
+# <IfModule mod_evasive20.c>
+#     DOSHashTableSize 3097
+#     DOSPageCount 5
+#     DOSSiteCount 50
+#     DOSPageInterval 1
+#     DOSSiteInterval 1
+#     DOSBlockingPeriod 60
+# </IfModule>
+
+# ==========================================================================
+# Custom Error Pages
+# ==========================================================================
+
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+ErrorDocument 502 /502.html
+ErrorDocument 503 /503.html
+ErrorDocument 504 /504.html
+
+# ==========================================================================
+# UTF-8 Encoding
+# ==========================================================================
+
+AddDefaultCharset UTF-8
+
+# ==========================================================================
+# Prevent Image Hotlinking (Optional)
+# ==========================================================================
+
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{HTTP_REFERER} !^$
+#     RewriteCond %{HTTP_REFERER} !^https?://(www\.)?hollyxavieraexport\.com [NC]
+#     RewriteRule \.(jpg|jpeg|png|gif|webp|svg)$ - [F,NC,L]
+# </IfModule>
