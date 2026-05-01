@@ -43,8 +43,26 @@
         @media(max-width:768px){.admin-layout{grid-template-columns:1fr}.admin-sidebar{display:none}}
     </style>
     
-    <link rel="stylesheet" href="../css/styles.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="../css/styles.css"></noscript>
+    <!-- Stylesheet with path detection -->
+    <script>
+        // Detect base path for GitHub Pages compatibility
+        (function() {
+            var basePath = '';
+            // Check if we're on GitHub Pages
+            if (window.location.hostname === 'lukasherianto.github.io') {
+                // Check if URL contains /holly-xaviera-export/
+                if (!window.location.pathname.includes('/holly-xaviera-export')) {
+                    // User site: lukasherianto.github.io/admin/
+                    basePath = '';
+                } else {
+                    // Project site: lukasherianto.github.io/holly-xaviera-export/admin/
+                    basePath = '/holly-xaviera-export';
+                }
+            }
+            document.write('<link rel="stylesheet" href="' + basePath + '/css/styles.css" media="print" onload="this.media=\'all\'">');
+            document.write('<noscript><link rel="stylesheet" href="' + basePath + '/css/styles.css"></noscript>');
+        })();
+    </script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -165,6 +183,23 @@
     </script>
     
     <!-- Admin-specific JavaScript (Code Split) -->
-    <script src="../js/admin.js" defer></script>
+    <script>
+        // Detect base path for GitHub Pages compatibility
+        (function() {
+            var basePath = '';
+            // Check if we're on GitHub Pages
+            if (window.location.hostname === 'lukasherianto.github.io') {
+                // Check if URL contains /holly-xaviera-export/
+                if (!window.location.pathname.includes('/holly-xaviera-export')) {
+                    // User site: lukasherianto.github.io/admin/
+                    basePath = '';
+                } else {
+                    // Project site: lukasherianto.github.io/holly-xaviera-export/admin/
+                    basePath = '/holly-xaviera-export';
+                }
+            }
+            document.write('<script src="' + basePath + '/js/admin.js" defer><\/script>');
+        })();
+    </script>
 </body>
 </html>

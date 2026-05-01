@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Test - Path Detection</title>
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .info { background: #f0f0f0; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .success { background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        code { background: #e0e0e0; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Admin Panel Path Detection Test</h1>
+    
+    <div class="info">
+        <h2>Current URL Information</h2>
+        <p><strong>Hostname:</strong> <code id="hostname"></code></p>
+        <p><strong>Pathname:</strong> <code id="pathname"></code></p>
+        <p><strong>Full URL:</strong> <code id="fullurl"></code></p>
+    </div>
+    
+    <div id="result"></div>
+    
+    <div class="info">
+        <h2>Expected Paths</h2>
+        <ul>
+            <li><strong>User Site:</strong> <code>https://lukasherianto.github.io/admin/</code></li>
+            <li><strong>Project Site:</strong> <code>https://lukasherianto.github.io/holly-xaviera-export/admin/</code></li>
+            <li><strong>Localhost:</strong> <code>http://localhost:3000/admin/</code></li>
+        </ul>
+    </div>
+
+    <script>
+        // Display current URL info
+        document.getElementById('hostname').textContent = window.location.hostname;
+        document.getElementById('pathname').textContent = window.location.pathname;
+        document.getElementById('fullurl').textContent = window.location.href;
+        
+        // Test path detection logic
+        var basePath = '';
+        var detectedType = 'Unknown';
+        
+        if (window.location.hostname === 'lukasherianto.github.io') {
+            if (!window.location.pathname.includes('/holly-xaviera-export')) {
+                // User site: lukasherianto.github.io/admin/
+                basePath = '';
+                detectedType = 'User Site (lukasherianto.github.io/admin/)';
+            } else {
+                // Project site: lukasherianto.github.io/holly-xaviera-export/admin/
+                basePath = '/holly-xaviera-export';
+                detectedType = 'Project Site (lukasherianto.github.io/holly-xaviera-export/admin/)';
+            }
+        } else {
+            // Local or other hosting
+            basePath = '';
+            detectedType = 'Local/Other Hosting';
+        }
+        
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <div class="success">
+                <h2>✅ Detection Result</h2>
+                <p><strong>Site Type:</strong> ${detectedType}</p>
+                <p><strong>Base Path:</strong> <code>${basePath}</code></p>
+                <p><strong>CSS Path:</strong> <code>${basePath}/css/styles.css</code></p>
+                <p><strong>JS Path:</strong> <code>${basePath}/js/admin.js</code></p>
+            </div>
+            
+            <div class="info">
+                <h3>Test Links</h3>
+                <p>Try accessing these resources:</p>
+                <ul>
+                    <li><a href="${basePath}/css/styles.css" target="_blank">CSS Stylesheet</a></li>
+                    <li><a href="${basePath}/js/admin.js" target="_blank">Admin JavaScript</a></li>
+                    <li><a href="${basePath}/admin/">Admin Panel</a></li>
+                    <li><a href="${basePath}/">Home Page</a></li>
+                </ul>
+            </div>
+        `;
+        
+        // Auto-test CSS loading
+        var testLink = document.createElement('link');
+        testLink.rel = 'stylesheet';
+        testLink.href = basePath + '/css/styles.css';
+        testLink.onload = function() {
+            console.log('✅ CSS loaded successfully');
+        };
+        testLink.onerror = function() {
+            console.error('❌ CSS failed to load');
+            resultDiv.innerHTML += `
+                <div class="error">
+                    <strong>⚠️ CSS Loading Failed!</strong><br>
+                    The stylesheet at <code>${basePath}/css/styles.css</code> could not be loaded.<br>
+                    Check that the file exists and GitHub Pages is enabled.
+                </div>
+            `;
+        };
+        document.head.appendChild(testLink);
+    </script>
+</body>
+</html>
