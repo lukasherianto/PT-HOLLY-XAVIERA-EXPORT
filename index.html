@@ -3,275 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - PT. Holly Xaviera Export</title>
-    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
+    <!-- SEO Meta Tags -->
+    <title>PT. Holly Xaviera Export - Premium Indonesian Coffee & Spices</title>
+    <meta name="description" content="Leading Indonesian B2B exporter of premium coffee, spices, and natural commodities. Quality guaranteed for global markets.">
+    <meta name="keywords" content="Indonesian coffee, spices exporter, B2B commodities, green coffee beans, vanilla, cinnamon, nutmeg">
+    <meta name="author" content="PT. Holly Xaviera Export">
+    <meta name="robots" content="index, follow">
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PT. Holly Xaviera Export - Premium Indonesian Commodities">
+    <meta property="og:description" content="Your trusted partner for Indonesian coffee, spices, and natural commodities.">
+    <meta property="og:url" content="https://lukasherianto.github.io/PT-HOLLY-XAVIERA-EXPORT/">
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co;">
+
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Critical CSS -->
     <style>
         :root{
             --primary:#2D5A27;
             --primary-dark:#1E3D1A;
             --secondary:#D4A574;
+            --accent:#C9A66B;
             --text:#1F2937;
             --text-light:#6B7280;
-            --bg:#F3F4F6;
+            --bg:#FEFBF5;
             --white:#FFFFFF;
             --border:#E5E7EB;
             --success:#10B981;
             --error:#EF4444;
-            --warning:#F59E0B;
-            --shadow:0 1px 3px rgba(0,0,0,0.1);
+            --shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);
             --radius:8px;
+            --radius-lg:12px;
+            --transition:all 0.3s ease;
         }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        html{scroll-behavior:smooth}
+        @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        img{max-width:100%;height:auto;display:block}
+        a{text-decoration:none;color:inherit}
+        button{cursor:pointer;border:none;font-family:inherit}
+        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 
-        /* Login Screen */
-        .login-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-        .login-box{background:var(--white);padding:40px;border-radius:var(--radius);box-shadow:0 4px 6px rgba(0,0,0,0.1);width:100%;max-width:400px}
-        .login-title{font-size:1.5rem;color:var(--primary);margin-bottom:10px;text-align:center}
-        .login-subtitle{color:var(--text-light);text-align:center;margin-bottom:30px}
+        /* Header */
+        header{background:var(--white);box-shadow:var(--shadow);position:sticky;top:0;z-index:100}
+        .header-inner{display:flex;justify-content:space-between;align-items:center;padding:15px 0}
+        .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--primary)}
+        .logo span{color:var(--secondary)}
+        nav ul{display:flex;gap:25px;list-style:none}
+        nav a{font-weight:500;color:var(--text);transition:var(--transition)}
+        nav a:hover{color:var(--primary)}
+        .cart-btn{position:relative;background:transparent;padding:8px}
+        .cart-icon{width:28px;height:28px;fill:var(--primary)}
+        .cart-badge{position:absolute;top:0;right:0;background:var(--secondary);color:var(--white);font-size:0.7rem;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600}
+
+        /* Hero */
+        .hero{background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%232D5A27" width="1200" height="600"/></svg>');background-size:cover;background-position:center;color:var(--white);padding:100px 0;text-align:center}
+        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:20px}
+        .hero p{font-size:1.1rem;max-width:600px;margin:0 auto 30px;opacity:0.9}
+        .btn{display:inline-block;padding:12px 30px;border-radius:var(--radius);font-weight:600;transition:var(--transition)}
+        .btn-primary{background:var(--secondary);color:var(--white)}
+        .btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+
+        /* Products */
+        .section{padding:80px 0}
+        .section-title{font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin-bottom:50px;color:var(--primary)}
+        .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+        .filter-btn{padding:8px 20px;border:2px solid var(--border);background:var(--white);border-radius:25px;font-weight:500;transition:var(--transition)}
+        .filter-btn.active,.filter-btn:hover{background:var(--primary);color:var(--white);border-color:var(--primary)}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px}
+        .product-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition)}
+        .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+        .product-img{width:100%;height:220px;object-fit:cover;background:#f0f0f0}
+        .product-info{padding:20px}
+        .product-category{font-size:0.8rem;color:var(--secondary);text-transform:uppercase;font-weight:600}
+        .product-title{font-size:1.2rem;margin:8px 0;color:var(--primary)}
+        .product-moq{font-size:0.9rem;color:var(--text-light);margin-bottom:15px}
+        .add-to-cart{width:100%;padding:12px;background:var(--primary);color:var(--white);border-radius:var(--radius);font-weight:600;transition:var(--transition)}
+        .add-to-cart:hover{background:var(--primary-dark)}
+
+        /* Cart Panel */
+        .cart-panel{position:fixed;top:0;right:-400px;width:100%;max-width:400px;height:100vh;background:var(--white);box-shadow:var(--shadow-lg);z-index:1000;transition:var(--transition);display:flex;flex-direction:column}
+        .cart-panel.open{right:0}
+        .cart-header{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--border)}
+        .cart-title{font-size:1.3rem;font-weight:600;color:var(--primary)}
+        .close-cart{background:transparent;font-size:1.5rem;color:var(--text-light)}
+        .cart-items{flex:1;overflow-y:auto;padding:20px}
+        .cart-item{display:flex;gap:15px;padding:15px 0;border-bottom:1px solid var(--border)}
+        .cart-item-img{width:70px;height:70px;object-fit:cover;border-radius:var(--radius)}
+        .cart-item-details{flex:1}
+        .cart-item-name{font-weight:600;margin-bottom:5px}
+        .cart-item-controls{display:flex;align-items:center;gap:10px;margin-top:8px}
+        .qty-btn{width:30px;height:30px;border:1px solid var(--border);background:var(--white);border-radius:4px}
+        .qty-input{width:50px;text-align:center;border:1px solid var(--border);border-radius:4px;padding:5px}
+        .remove-item{color:var(--error);background:transparent;font-size:0.85rem;margin-left:auto}
+        .cart-footer{padding:20px;border-top:1px solid var(--border)}
+        .cart-total{display:flex;justify-content:space-between;margin-bottom:20px;font-size:1.1rem;font-weight:600}
+        .checkout-btn{width:100%;padding:15px;background:var(--secondary);color:var(--white);border-radius:var(--radius);font-weight:600;font-size:1rem}
+        .empty-cart{text-align:center;padding:40px 20px;color:var(--text-light)}
+
+        /* Checkout Modal */
+        .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1001;display:none;align-items:center;justify-content:center;padding:20px}
+        .modal-overlay.open{display:flex}
+        .modal{background:var(--white);border-radius:var(--radius-lg);max-width:600px;width:100%;max-height:90vh;overflow-y:auto}
+        .modal-header{padding:25px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .modal-title{font-size:1.5rem;color:var(--primary)}
+        .modal-body{padding:25px}
         .form-group{margin-bottom:20px}
         .form-label{display:block;margin-bottom:8px;font-weight:500}
-        .form-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius);font-size:1rem}
-        .form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(45,90,39,0.1)}
-        .btn{width:100%;padding:12px;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius);font-weight:600;cursor:pointer;transition:all 0.3s}
-        .btn:hover{background:var(--primary-dark)}
-        .btn:disabled{background:var(--text-light);cursor:not-allowed}
+        .form-input,.form-textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:1rem}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(45,90,39,0.1)}
+        .form-textarea{min-height:100px;resize:vertical}
         .error-msg{color:var(--error);font-size:0.85rem;margin-top:5px;display:none}
+        .form-input.error{border-color:var(--error)}
+        .form-input.error+.error-msg{display:block}
+        .submit-btn{width:100%;padding:15px;background:var(--primary);color:var(--white);border-radius:var(--radius);font-weight:600;font-size:1.1rem;transition:var(--transition)}
+        .submit-btn:hover{background:var(--primary-dark)}
+        .submit-btn:disabled{background:var(--text-light);cursor:not-allowed}
 
-        /* Dashboard */
-        .dashboard{display:none}
-        .admin-header{background:var(--white);box-shadow:var(--shadow);padding:15px 30px;display:flex;justify-content:space-between;align-items:center}
-        .admin-logo{font-size:1.3rem;font-weight:700;color:var(--primary)}
-        .admin-user{display:flex;align-items:center;gap:15px}
-        .logout-btn{padding:8px 16px;background:transparent;color:var(--text-light);border:1px solid var(--border)}
-        .logout-btn:hover{background:var(--error);color:var(--white);border-color:var(--error)}
-
-        .admin-body{display:flex;min-height:calc(100vh - 70px)}
-        .sidebar{width:250px;background:var(--white);border-right:1px solid var(--border);padding:20px 0}
-        .nav-item{display:block;width:100%;padding:12px 20px;text-align:left;background:transparent;border:none;cursor:pointer;color:var(--text);transition:all 0.2s}
-        .nav-item:hover{background:#f9f9f9}
-        .nav-item.active{background:var(--primary);color:var(--white)}
-
-        .main-content{flex:1;padding:30px;overflow-y:auto}
-        .tab-content{display:none}
-        .tab-content.active{display:block}
-        .tab-title{font-size:1.8rem;margin-bottom:30px;color:var(--primary)}
-
-        /* Tables */
-        .table-container{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-        table{width:100%;border-collapse:collapse}
-        th,td{padding:15px;text-align:left;border-bottom:1px solid var(--border)}
-        th{background:#f9f9f9;font-weight:600}
-        tr:hover{background:#f9f9f9}
-        .status-badge{padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:600}
-        .status-pending{background:#FEF3C7;color:#92400E}
-        .status-processed{background:#DBEAFE;color:#1E40AF}
-        .status-completed{background:#D1FAE5;color:#065F46}
-
-        /* Forms */
-        .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:25px;margin-bottom:25px}
-        .card-title{font-size:1.3rem;margin-bottom:20px;color:var(--primary)}
-        .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-        .btn-primary{background:var(--primary);color:var(--white)}
-        .btn-secondary{background:var(--secondary);color:var(--white)}
-        .btn-sm{padding:8px 16px;width:auto}
+        /* Footer */
+        footer{background:var(--primary-dark);color:var(--white);padding:60px 0 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-bottom:40px}
+        .footer-col h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:20px;color:var(--secondary)}
+        .footer-col p,.footer-col li{color:rgba(255,255,255,0.8);margin-bottom:10px}
+        .footer-col ul{list-style:none}
+        .footer-bottom{text-align:center;padding-top:30px;border-top:1px solid rgba(255,255,255,0.1)}
 
         /* Toast */
-        .toast{position:fixed;bottom:30px;right:30px;background:var(--success);color:var(--white);padding:15px 25px;border-radius:var(--radius);box-shadow:0 4px 6px rgba(0,0,0,0.1);transform:translateY(100px);opacity:0;transition:all 0.3s;z-index:1000}
+        .toast{position:fixed;bottom:30px;right:30px;background:var(--success);color:var(--white);padding:15px 25px;border-radius:var(--radius);box-shadow:var(--shadow-lg);transform:translateY(100px);opacity:0;transition:var(--transition);z-index:2000}
         .toast.show{transform:translateY(0);opacity:1}
         .toast.error{background:var(--error)}
 
+        /* Mobile */
         @media(max-width:768px){
-            .admin-body{flex-direction:column}
-            .sidebar{width:100%;border-right:none;border-bottom:1px solid var(--border)}
-            .form-row{grid-template-columns:1fr}
+            nav ul{display:none}
+            .hero{padding:60px 0}
+            .section{padding:50px 0}
+            .cart-panel{max-width:100%}
         }
+
+        /* Loading State */
+        .loading{opacity:0.5;pointer-events:none}
+        .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:var(--white);animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
     </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="loginScreen" class="login-container">
-        <div class="login-box">
-            <h1 class="login-title">Admin Login</h1>
-            <p class="login-subtitle">PT. Holly Xaviera Export</p>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" id="loginEmail" class="form-input" required>
-                    <span class="error-msg">Please enter a valid email</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="loginPassword" class="form-input" required>
-                    <span class="error-msg">Password is required</span>
-                </div>
-                <button type="submit" class="btn" id="loginBtn">Login</button>
-            </form>
+    <!-- Header -->
+    <header role="banner">
+        <div class="container header-inner">
+            <a href="#" class="logo">Holly <span>Xaviera</span></a>
+            <nav role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+                <svg class="cart-icon" viewBox="0 0 24 24">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
         </div>
-    </div>
+    </header>
 
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
-        <header class="admin-header">
-            <div class="admin-logo">Admin Dashboard</div>
-            <div class="admin-user">
-                <span id="userEmail">admin@hollyxaviera.com</span>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Premium Indonesian Coffee & Spices</h1>
+            <p>Your trusted B2B partner for high-quality green coffee beans, vanilla, cinnamon, nutmeg, and other natural commodities from Indonesia.</p>
+            <a href="#products" class="btn btn-primary">Explore Products</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
+
+            <!-- Filters -->
+            <div class="filters" id="categoryFilters">
+                <button class="filter-btn active" data-category="all">All Products</button>
+                <button class="filter-btn" data-category="coffee">Coffee</button>
+                <button class="filter-btn" data-category="spices">Spices</button>
+                <button class="filter-btn" data-category="nuts">Nuts & Seeds</button>
             </div>
-        </header>
 
-        <div class="admin-body">
-            <aside class="sidebar">
-                <button class="nav-item active" data-tab="orders">Orders/Inquiries</button>
-                <button class="nav-item" data-tab="products">Products</button>
-                <button class="nav-item" data-tab="settings">Settings</button>
-            </aside>
+            <!-- Search -->
+            <div style="text-align:center;margin-bottom:30px;">
+                <input type="text" id="searchInput" class="form-input" placeholder="Search products..." style="max-width:400px;">
+            </div>
 
-            <main class="main-content">
-                <!-- Orders Tab -->
-                <section id="ordersTab" class="tab-content active">
-                    <h2 class="tab-title">Orders & Inquiries</h2>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Company</th>
-                                    <th>Email</th>
-                                    <th>Items</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ordersTableBody">
-                                <tr><td colspan="7" style="text-align:center;">Loading...</td></tr>
-                            </tbody>
-                        </table>
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section" style="background:#f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div style="max-width:800px;margin:0 auto;text-align:center;">
+                <p style="margin-bottom:20px;">PT. Holly Xaviera Export is a leading Indonesian exporter specializing in premium agricultural commodities. With years of experience and strong partnerships with local farmers, we deliver the finest quality products to international markets.</p>
+                <p>Our commitment to sustainability, fair trade practices, and rigorous quality control ensures that every shipment meets the highest international standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div style="max-width:600px;margin:0 auto;text-align:center;">
+                <p style="margin-bottom:30px;">Ready to place an order or have questions? Get in touch with us today.</p>
+                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:30px;">
+                    <div>
+                        <strong>Email:</strong><br>
+                        <a href="mailto:info@hollyxaviera.com" style="color:var(--primary);">info@hollyxaviera.com</a>
                     </div>
-                </section>
-
-                <!-- Products Tab -->
-                <section id="productsTab" class="tab-content">
-                    <h2 class="tab-title">Product Management</h2>
-
-                    <div class="card">
-                        <h3 class="card-title">Add/Edit Product</h3>
-                        <form id="productForm">
-                            <input type="hidden" id="productId">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Product Name *</label>
-                                    <input type="text" id="productName" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Category *</label>
-                                    <select id="productCategory" class="form-input" required>
-                                        <option value="">Select Category</option>
-                                        <option value="coffee">Coffee</option>
-                                        <option value="spices">Spices</option>
-                                        <option value="nuts">Nuts & Seeds</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">MOQ (Minimum Order Quantity) *</label>
-                                    <input type="text" id="productMoq" class="form-input" placeholder="e.g., 100 kg" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Image URL</label>
-                                    <input type="url" id="productImage" class="form-input" placeholder="https://...">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Description</label>
-                                <textarea id="productDescription" class="form-input" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Specifications</label>
-                                <textarea id="productSpecs" class="form-input" rows="2" placeholder="Moisture, Screen size, etc."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width:auto;">Save Product</button>
-                            <button type="button" class="btn btn-secondary" id="cancelProductBtn" style="width:auto;display:none;">Cancel</button>
-                        </form>
+                    <div>
+                        <strong>WhatsApp:</strong><br>
+                        <a href="https://wa.me/6281234567890" style="color:var(--primary);">+62 812-3456-7890</a>
                     </div>
-
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>MOQ</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productsTableBody">
-                                <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
-                            </tbody>
-                        </table>
+                    <div>
+                        <strong>Address:</strong><br>
+                        Jakarta, Indonesia
                     </div>
-                </section>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Settings Tab -->
-                <section id="settingsTab" class="tab-content">
-                    <h2 class="tab-title">Company Settings</h2>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>PT. Holly Xaviera Export</h3>
+                    <p>Your trusted partner for premium Indonesian agricultural commodities.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>Jakarta, Indonesia</p>
+                    <p>info@hollyxaviera.com</p>
+                    <p>+62 812-3456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PT. Holly Xaviera Export. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-                    <div class="card">
-                        <h3 class="card-title">General Information</h3>
-                        <form id="settingsForm">
-                            <div class="form-group">
-                                <label class="form-label">Company Name</label>
-                                <input type="text" id="settingCompanyName" class="form-input" value="PT. Holly Xaviera Export">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Default Email</label>
-                                    <input type="email" id="settingEmail" class="form-input" value="info@hollyxaviera.com">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">WhatsApp Number</label>
-                                    <input type="tel" id="settingWA" class="form-input" value="+62 812-3456-7890">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Office Address</label>
-                                <textarea id="settingAddress" class="form-input" rows="2">Jakarta, Indonesia</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width:auto;">Save Settings</button>
-                        </form>
-                    </div>
-                </section>
-            </main>
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel" role="dialog" aria-label="Shopping cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Inquiry Cart</h3>
+            <button class="close-cart" id="closeCart" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be rendered here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total Items:</span>
+                <span id="cartTotalQty">0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Inquiry</button>
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal" role="dialog" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Submit Inquiry</h3>
+                <button class="close-cart" id="closeModal" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label class="form-label" for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" class="form-input" required>
+                        <span class="error-msg">Please enter your full name</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="company">Company Name *</label>
+                        <input type="text" id="company" class="form-input" required>
+                        <span class="error-msg">Please enter your company name</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-input" required>
+                        <span class="error-msg">Please enter a valid email address</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="whatsapp">WhatsApp Number *</label>
+                        <input type="tel" id="whatsapp" class="form-input" required placeholder="+62...">
+                        <span class="error-msg">Please enter a valid WhatsApp number</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="address">Shipping Address *</label>
+                        <textarea id="address" class="form-textarea" required></textarea>
+                        <span class="error-msg">Please enter your shipping address</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="notes">Additional Notes</label>
+                        <textarea id="notes" class="form-textarea" placeholder="Any special requirements or questions..."></textarea>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div style="background:#f9f9f9;padding:20px;border-radius:8px;margin-bottom:20px;">
+                        <h4 style="margin-bottom:15px;color:var(--primary);">Order Summary</h4>
+                        <div id="orderSummary"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Submit Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
+    <!-- Main JavaScript -->
     <script>
         // Configuration
         const CONFIG = {
             SUPABASE_URL: 'https://your-project.supabase.co',
-            SUPABASE_ANON_KEY: 'your-anon-key'
+            SUPABASE_ANON_KEY: 'your-anon-key',
+            EDGE_FUNCTION_URL: 'https://your-project.supabase.co/functions/v1/submit-order'
         };
-
-        // Auth State
-        let isAdminLoggedIn = false;
 
         // Utility Functions
         const Utils = {
+            sanitize(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            },
+
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            },
+
+            validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            },
+
+            validatePhone(phone) {
+                return /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/.test(phone.replace(/\s/g, ''));
+            },
+
             showToast(message, isError = false) {
                 const toast = document.getElementById('toast');
                 toast.textContent = message;
@@ -297,180 +419,388 @@
             }
         };
 
-        // Demo Data
-        const demoOrders = [
-            { id: 'ORD-001', customer_name: 'John Smith', customer_company: 'Coffee Importers Ltd', customer_email: 'john@coffeeimporters.com', items: [{name: 'Arabica Gayo', quantity: 500}], status: 'pending', created_at: '2024-01-15' },
-            { id: 'ORD-002', customer_name: 'Sarah Johnson', customer_company: 'Spice Trading Co', customer_email: 'sarah@spicetrading.com', items: [{name: 'Vanilla Planifolia', quantity: 50}], status: 'processed', created_at: '2024-01-14' },
-            { id: 'ORD-003', customer_name: 'Michael Brown', customer_company: 'Global Foods Inc', customer_email: 'michael@globalfoods.com', items: [{name: 'Nutmeg Whole', quantity: 200}], status: 'completed', created_at: '2024-01-13' }
-        ];
+        // Cart Module
+        const Cart = {
+            items: [],
 
-        const demoProducts = [
-            { id: 1, name: 'Arabica Gayo Green Beans', category: 'coffee', moq: '100 kg' },
-            { id: 2, name: 'Robusta Lampung', category: 'coffee', moq: '200 kg' },
-            { id: 3, name: 'Vanilla Planifolia', category: 'spices', moq: '10 kg' },
-            { id: 4, name: 'Cinnamon Stick Cassia', category: 'spices', moq: '50 kg' },
-            { id: 5, name: 'Nutmeg Whole', category: 'spices', moq: '100 kg' },
-            { id: 6, name: 'Cashew Nuts W320', category: 'nuts', moq: '500 kg' }
-        ];
-
-        // Login Module
-        const Login = {
             init() {
-                const form = document.getElementById('loginForm');
-                const loginBtn = document.getElementById('loginBtn');
+                this.items = Utils.getFromStorage('cart_items') || [];
+                this.updateBadge();
+            },
 
-                // Check if already logged in
-                if (Utils.getFromStorage('admin_logged_in')) {
-                    this.showDashboard();
+            add(product) {
+                const existing = this.items.find(item => item.id === product.id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    this.items.push({ ...product, quantity: 1 });
                 }
-
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    const email = document.getElementById('loginEmail').value.trim();
-                    const password = document.getElementById('loginPassword').value;
-
-                    loginBtn.disabled = true;
-                    loginBtn.textContent = 'Logging in...';
-
-                    // Demo mode - accept any credentials
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-
-                    Utils.saveToStorage('admin_logged_in', { email });
-                    this.showDashboard();
-
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Login';
-                });
+                this.save();
+                this.updateBadge();
+                Utils.showToast(`${product.name} added to cart`);
             },
 
-            showDashboard() {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                isAdminLoggedIn = true;
-
-                // Load data
-                Orders.load();
-                Products.load();
+            remove(productId) {
+                this.items = this.items.filter(item => item.id !== productId);
+                this.save();
+                this.render();
+                this.updateBadge();
             },
 
-            logout() {
-                localStorage.removeItem('admin_logged_in');
-                location.reload();
-            }
-        };
+            updateQuantity(productId, quantity) {
+                const item = this.items.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = Math.max(1, quantity);
+                    this.save();
+                    this.render();
+                    this.updateBadge();
+                }
+            },
 
-        // Orders Module
-        const Orders = {
-            load() {
-                const tbody = document.getElementById('ordersTableBody');
+            clear() {
+                this.items = [];
+                this.save();
+                this.render();
+                this.updateBadge();
+            },
 
-                // In production, fetch from Supabase
-                // const response = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`, ...);
+            save() {
+                Utils.saveToStorage('cart_items', this.items);
+            },
 
-                const orders = demoOrders;
+            getTotalQty() {
+                return this.items.reduce((sum, item) => sum + item.quantity, 0);
+            },
 
-                if (orders.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No orders found</td></tr>';
+            updateBadge() {
+                const badge = document.getElementById('cartBadge');
+                const total = this.getTotalQty();
+                badge.textContent = total;
+                badge.style.display = total > 0 ? 'flex' : 'none';
+            },
+
+            render() {
+                const container = document.getElementById('cartItems');
+                const totalQtyEl = document.getElementById('cartTotalQty');
+
+                if (this.items.length === 0) {
+                    container.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p><p style="margin-top:10px;">Add products to start an inquiry</p></div>';
+                    totalQtyEl.textContent = '0';
                     return;
                 }
 
-                tbody.innerHTML = orders.map(order => `
-                    <tr>
-                        <td><strong>${order.id}</strong></td>
-                        <td>${order.customer_name}</td>
-                        <td>${order.customer_company}</td>
-                        <td>${order.customer_email}</td>
-                        <td>${order.items.map(i => `${i.name} x${i.quantity}`).join(', ')}</td>
-                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
-                        <td>${order.created_at}</td>
-                    </tr>
+                totalQtyEl.textContent = this.getTotalQty();
+                container.innerHTML = this.items.map(item => `
+                    <div class="cart-item">
+                        <img src="${Utils.sanitize(item.image_url || 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect fill=\'%23ddd\' width=\'100\' height=\'100\'/></svg>')}"
+                             alt="${Utils.sanitize(item.name)}"
+                             class="cart-item-img"
+                             loading="lazy">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${Utils.sanitize(item.name)}</div>
+                            <div style="font-size:0.85rem;color:var(--text-light);">${Utils.sanitize(item.category)}</div>
+                            <div class="cart-item-controls">
+                                <button class="qty-btn" onclick="Cart.updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                <input type="number" class="qty-input" value="${item.quantity}" min="1" onchange="Cart.updateQuantity(${item.id}, parseInt(this.value))">
+                                <button class="qty-btn" onclick="Cart.updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                                <button class="remove-item" onclick="Cart.remove(${item.id})">Remove</button>
+                            </div>
+                        </div>
+                    </div>
                 `).join('');
             }
         };
 
         // Products Module
         const Products = {
-            load() {
-                const tbody = document.getElementById('productsTableBody');
-                const products = demoProducts;
+            all: [],
 
+            async init() {
+                await this.loadProducts();
+                this.render(this.all);
+                this.setupFilters();
+                this.setupSearch();
+            },
+
+            async loadProducts() {
+                // Demo products (replace with Supabase fetch in production)
+                this.all = [
+                    {
+                        id: 1,
+                        name: 'Arabica Gayo Green Beans',
+                        slug: 'arabica-gayo-green-beans',
+                        category: 'coffee',
+                        moq: '100 kg',
+                        description: 'Premium Arabica coffee from Aceh Gayo region with rich flavor and low acidity.',
+                        specifications: 'Moisture: 12%, Screen: 15-18, Defects: <5%',
+                        image_url: ''
+                    },
+                    {
+                        id: 2,
+                        name: 'Robusta Lampung',
+                        slug: 'robusta-lampung',
+                        category: 'coffee',
+                        moq: '200 kg',
+                        description: 'Strong and bold Robusta coffee from Lampung with earthy notes.',
+                        specifications: 'Moisture: 12%, Screen: 13-15, Defects: <8%',
+                        image_url: ''
+                    },
+                    {
+                        id: 3,
+                        name: 'Vanilla Planifolia',
+                        slug: 'vanilla-planifolia',
+                        category: 'spices',
+                        moq: '10 kg',
+                        description: 'High-quality Madagascar-type vanilla beans from Indonesia.',
+                        specifications: 'Length: 14-17cm, Moisture: 30-35%, Vanillin: 2%',
+                        image_url: ''
+                    },
+                    {
+                        id: 4,
+                        name: 'Cinnamon Stick Cassia',
+                        slug: 'cinnamon-cassia',
+                        category: 'spices',
+                        moq: '50 kg',
+                        description: 'Aromatic cassia cinnamon sticks with strong flavor.',
+                        specifications: 'Length: 8-10cm, Diameter: 5-8mm, Moisture: <14%',
+                        image_url: ''
+                    },
+                    {
+                        id: 5,
+                        name: 'Nutmeg Whole',
+                        slug: 'nutmeg-whole',
+                        category: 'spices',
+                        moq: '100 kg',
+                        description: 'Premium Grade A nutmeg from Banda Islands.',
+                        specifications: 'Grade: A, Moisture: <10%, Oil Content: >8%',
+                        image_url: ''
+                    },
+                    {
+                        id: 6,
+                        name: 'Cashew Nuts W320',
+                        slug: 'cashew-w320',
+                        category: 'nuts',
+                        moq: '500 kg',
+                        description: 'Premium white cashew nuts grade W320.',
+                        specifications: 'Grade: W320, Moisture: <5%, Defects: <1%',
+                        image_url: ''
+                    }
+                ];
+            },
+
+            render(products) {
+                const grid = document.getElementById('productsGrid');
                 if (products.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No products found</td></tr>';
+                    grid.innerHTML = '<p style="text-align:center;grid-column:1/-1;">No products found</p>';
                     return;
                 }
 
-                tbody.innerHTML = products.map(product => `
-                    <tr>
-                        <td>${product.id}</td>
-                        <td>${product.name}</td>
-                        <td>${product.category}</td>
-                        <td>${product.moq}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary" onclick="Products.edit(${product.id})">Edit</button>
-                            <button class="btn btn-sm" style="background:var(--error);color:white;" onclick="Products.delete(${product.id})">Delete</button>
-                        </td>
-                    </tr>
+                grid.innerHTML = products.map(product => `
+                    <article class="product-card">
+                        <img src="${Utils.sanitize(product.image_url || 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 300 220\'><rect fill=\'%23f0f0f0\' width=\'300\' height=\'220\'/><text x=\'150\' y=\'110\' text-anchor=\'middle\' fill=\'%23999\' font-size=\'16\'>${encodeURIComponent(product.name)}</text></svg>')}"
+                             alt="${Utils.sanitize(product.name)}"
+                             class="product-img"
+                             loading="lazy">
+                        <div class="product-info">
+                            <span class="product-category">${Utils.sanitize(product.category)}</span>
+                            <h3 class="product-title">${Utils.sanitize(product.name)}</h3>
+                            <p class="product-moq">MOQ: ${Utils.sanitize(product.moq)}</p>
+                            <button class="add-to-cart" onclick="Cart.add({id:${product.id},name:'${Utils.sanitize(product.name)}',category:'${Utils.sanitize(product.category)}',moq:'${Utils.sanitize(product.moq)}',image_url:'${Utils.sanitize(product.image_url || '')}'})">
+                                Add to Inquiry
+                            </button>
+                        </div>
+                    </article>
                 `).join('');
             },
 
-            edit(id) {
-                const product = demoProducts.find(p => p.id === id);
-                if (!product) return;
-
-                document.getElementById('productId').value = product.id;
-                document.getElementById('productName').value = product.name;
-                document.getElementById('productCategory').value = product.category;
-                document.getElementById('productMoq').value = product.moq;
-                document.getElementById('cancelProductBtn').style.display = 'inline-block';
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            setupFilters() {
+                const buttons = document.querySelectorAll('#categoryFilters .filter-btn');
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        buttons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const category = btn.dataset.category;
+                        const filtered = category === 'all'
+                            ? this.all
+                            : this.all.filter(p => p.category === category);
+                        this.render(filtered);
+                    });
+                });
             },
 
-            delete(id) {
-                if (confirm('Are you sure you want to delete this product?')) {
-                    Utils.showToast('Product deleted successfully');
-                    this.load();
-                }
+            setupSearch() {
+                const input = document.getElementById('searchInput');
+                input.addEventListener('input', Utils.debounce((e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    const filtered = this.all.filter(p =>
+                        p.name.toLowerCase().includes(query) ||
+                        p.category.toLowerCase().includes(query) ||
+                        p.description.toLowerCase().includes(query)
+                    );
+                    this.render(filtered);
+                }, 300));
             }
         };
 
-        // Initialize Dashboard
-        document.addEventListener('DOMContentLoaded', () => {
-            Login.init();
+        // Checkout Module
+        const Checkout = {
+            init() {
+                this.setupModal();
+                this.setupForm();
+            },
 
-            // Logout
-            document.getElementById('logoutBtn').addEventListener('click', () => Login.logout());
+            setupModal() {
+                const cartBtn = document.getElementById('cartBtn');
+                const closeCart = document.getElementById('closeCart');
+                const cartPanel = document.getElementById('cartPanel');
+                const checkoutBtn = document.getElementById('checkoutBtn');
+                const modal = document.getElementById('checkoutModal');
+                const closeModal = document.getElementById('closeModal');
 
-            // Tab Navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-
-                    item.classList.add('active');
-                    document.getElementById(`${item.dataset.tab}Tab`).classList.add('active');
+                cartBtn.addEventListener('click', () => {
+                    cartPanel.classList.add('open');
+                    Cart.render();
                 });
-            });
 
-            // Product Form
-            document.getElementById('productForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                Utils.showToast('Product saved successfully');
-                document.getElementById('productForm').reset();
-                document.getElementById('cancelProductBtn').style.display = 'none';
-                Products.load();
-            });
+                closeCart.addEventListener('click', () => cartPanel.classList.remove('open'));
 
-            document.getElementById('cancelProductBtn').addEventListener('click', () => {
-                document.getElementById('productForm').reset();
-                document.getElementById('cancelProductBtn').style.display = 'none';
-            });
+                checkoutBtn.addEventListener('click', () => {
+                    if (Cart.items.length === 0) {
+                        Utils.showToast('Your cart is empty', true);
+                        return;
+                    }
+                    cartPanel.classList.remove('open');
+                    modal.classList.add('open');
+                    this.renderSummary();
+                });
 
-            // Settings Form
-            document.getElementById('settingsForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                Utils.showToast('Settings saved successfully');
+                closeModal.addEventListener('click', () => modal.classList.remove('open'));
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('open');
+                });
+            },
+
+            renderSummary() {
+                const summary = document.getElementById('orderSummary');
+                summary.innerHTML = Cart.items.map(item => `
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;">
+                        <span>${Utils.sanitize(item.name)} x${item.quantity}</span>
+                    </div>
+                `).join('') + `<div style="border-top:1px solid #ddd;margin-top:10px;padding-top:10px;font-weight:600;">Total Items: ${Cart.getTotalQty()}</div>`;
+            },
+
+            setupForm() {
+                const form = document.getElementById('checkoutForm');
+                const submitBtn = document.getElementById('submitBtn');
+
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    // Validate
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const company = document.getElementById('company').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const whatsapp = document.getElementById('whatsapp').value.trim();
+                    const address = document.getElementById('address').value.trim();
+                    const notes = document.getElementById('notes').value.trim();
+
+                    let isValid = true;
+
+                    if (!fullName) {
+                        document.getElementById('fullName').classList.add('error');
+                        isValid = false;
+                    } else {
+                        document.getElementById('fullName').classList.remove('error');
+                    }
+
+                    if (!company) {
+                        document.getElementById('company').classList.add('error');
+                        isValid = false;
+                    } else {
+                        document.getElementById('company').classList.remove('error');
+                    }
+
+                    if (!email || !Utils.validateEmail(email)) {
+                        document.getElementById('email').classList.add('error');
+                        isValid = false;
+                    } else {
+                        document.getElementById('email').classList.remove('error');
+                    }
+
+                    if (!whatsapp || !Utils.validatePhone(whatsapp)) {
+                        document.getElementById('whatsapp').classList.add('error');
+                        isValid = false;
+                    } else {
+                        document.getElementById('whatsapp').classList.remove('error');
+                    }
+
+                    if (!address) {
+                        document.getElementById('address').classList.add('error');
+                        isValid = false;
+                    } else {
+                        document.getElementById('address').classList.remove('error');
+                    }
+
+                    if (!isValid) {
+                        Utils.showToast('Please fill in all required fields correctly', true);
+                        return;
+                    }
+
+                    // Submit
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+
+                    const payload = {
+                        customer_name: Utils.sanitize(fullName),
+                        customer_company: Utils.sanitize(company),
+                        customer_email: Utils.sanitize(email),
+                        customer_phone: Utils.sanitize(whatsapp),
+                        customer_address: Utils.sanitize(address),
+                        notes: Utils.sanitize(notes),
+                        items: Cart.items
+                    };
+
+                    try {
+                        // In production, send to Edge Function
+                        // const response = await fetch(CONFIG.EDGE_FUNCTION_URL, {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify(payload)
+                        // });
+
+                        // Demo mode (simulate success)
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+
+                        Utils.showToast('Inquiry submitted successfully! We will contact you soon.');
+                        Cart.clear();
+                        document.getElementById('checkoutModal').classList.remove('open');
+                        form.reset();
+                    } catch (error) {
+                        Utils.showToast('Failed to submit inquiry. Please try again.', true);
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Inquiry';
+                    }
+                });
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            Cart.init();
+            Products.init();
+            Checkout.init();
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
             });
         });
     </script>
