@@ -3,6 +3,13 @@
  * Comprehensive admin panel for managing content
  */
 
+// CONFIG must be available before Admin uses it
+const CONFIG = {
+    SUPABASE_URL: (typeof window !== 'undefined' && window.env && window.env.SUPABASE_URL) || 'YOUR_SUPABASE_URL',
+    SUPABASE_ANON_KEY: (typeof window !== 'undefined' && window.env && window.env.SUPABASE_ANON_KEY) || 'YOUR_SUPABASE_ANON_KEY',
+    EDGE_FUNCTION_URL: (typeof window !== 'undefined' && window.env && window.env.EDGE_FUNCTION_URL) || 'https://YOUR_PROJECT.supabase.co/functions/v1/submit-order'
+};
+
 const Admin = {
     state: {
         user: null,
@@ -16,8 +23,14 @@ const Admin = {
     },
     
     async init() {
+        // Ensure Utils is available
+        if (!window.Utils || !window.Utils.Storage) {
+            console.error('Utils not initialized');
+            return;
+        }
+        
         // Check if already logged in
-        const savedUser = Storage.get('admin_user');
+        const savedUser = window.Utils.Storage.get('admin_user');
         if (savedUser) {
             this.state.user = savedUser;
             this.showDashboard();
@@ -29,7 +42,7 @@ const Admin = {
     },
     
     showLogin() {
-        Modal.open('admin-login-modal');
+        window.Utils.Modal.open('admin-login-modal');
         
         const loginForm = document.getElementById('admin-login-form');
         if (loginForm) {
@@ -44,7 +57,7 @@ const Admin = {
         const password = document.getElementById('admin-password').value;
         
         try {
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).auth.signInWithPassword({
                 email,
                 password
             });
@@ -52,7 +65,7 @@ const Admin = {
             if (error) throw error;
             
             // Check if user is admin
-            const { data: profile } = await supabase
+            const { data: profile } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('admin_profiles')
                 .select('*')
                 .eq('id', data.user.id)
@@ -68,13 +81,13 @@ const Admin = {
                 role: profile.role
             };
             
-            Storage.set('admin_user', this.state.user);
-            Modal.close('admin-login-modal');
-            Toast.success('Welcome back!');
+            window.Utils.Storage.set('admin_user', this.state.user);
+            window.Utils.Modal.close('admin-login-modal');
+            window.Utils.Toast.success('Welcome back!');
             this.showDashboard();
             
         } catch (error) {
-            Toast.error(error.message || 'Login failed');
+            window.Utils.Toast.error(error.message || 'Login failed');
         }
     },
     
@@ -129,13 +142,13 @@ const Admin = {
     
     async handleLogout() {
         try {
-            await supabase.auth.signOut();
-            Storage.remove('admin_user');
+            await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).auth.signOut();
+            window.Utils.Storage.remove('admin_user');
             this.state.user = null;
-            Toast.success('Logged out successfully');
+            window.Utils.Toast.success('Logged out successfully');
             this.hideDashboard();
         } catch (error) {
-            Toast.error('Logout failed');
+            window.Utils.Toast.error('Logout failed');
         }
     },
     
@@ -335,9 +348,9 @@ const Admin = {
             const order = this.state.orders.find(o => o.id === orderId);
             if (order) order.status = status;
             
-            Toast.success('Order status updated');
+            window.Utils.Toast.success('Order status updated');
         } catch (error) {
-            Toast.error('Failed to update status');
+            window.Utils.Toast.error('Failed to update status');
         }
     },
     
@@ -397,7 +410,7 @@ const Admin = {
     async createProduct(data) {
         try {
             const slug = generateSlug(data.name);
-            const { error } = await supabase.from('products').insert({
+            const { error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).from('products').insert({
                 ...data,
                 slug,
                 specifications: {}
@@ -405,27 +418,27 @@ const Admin = {
             
             if (error) throw error;
             
-            Toast.success('Product created');
+            window.Utils.Toast.success('Product created');
             await this.loadProducts();
             this.renderProductsTab(document.getElementById('admin-content-area'));
             App.refreshProducts();
         } catch (error) {
-            Toast.error('Failed to create product');
+            window.Utils.Toast.error('Failed to create product');
         }
     },
     
     async updateProduct(id, data) {
         try {
-            const { error } = await supabase.from('products').update(data).eq('id', id);
+            const { error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).from('products').update(data).eq('id', id);
             
             if (error) throw error;
             
-            Toast.success('Product updated');
+            window.Utils.Toast.success('Product updated');
             await this.loadProducts();
             this.renderProductsTab(document.getElementById('admin-content-area'));
             App.refreshProducts();
         } catch (error) {
-            Toast.error('Failed to update product');
+            window.Utils.Toast.error('Failed to update product');
         }
     },
     
@@ -433,16 +446,16 @@ const Admin = {
         if (!confirm('Are you sure you want to delete this product?')) return;
         
         try {
-            const { error } = await supabase.from('products').delete().eq('id', id);
+            const { error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).from('products').delete().eq('id', id);
             
             if (error) throw error;
             
-            Toast.success('Product deleted');
+            window.Utils.Toast.success('Product deleted');
             await this.loadProducts();
             this.renderProductsTab(document.getElementById('admin-content-area'));
             App.refreshProducts();
         } catch (error) {
-            Toast.error('Failed to delete product');
+            window.Utils.Toast.error('Failed to delete product');
         }
     },
     
@@ -491,14 +504,14 @@ const Admin = {
     
     async toggleBanner(id, isActive) {
         try {
-            const { error } = await supabase.from('banners').update({ is_active: isActive }).eq('id', id);
+            const { error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).from('banners').update({ is_active: isActive }).eq('id', id);
             
             if (error) throw error;
             
-            Toast.success('Banner updated');
-            Storage.remove('banners');
+            window.Utils.Toast.success('Banner updated');
+            window.Utils.Storage.remove('banners');
         } catch (error) {
-            Toast.error('Failed to update banner');
+            window.Utils.Toast.error('Failed to update banner');
         }
     },
     
@@ -555,15 +568,15 @@ const Admin = {
         };
         
         try {
-            const { error } = await supabase.from('settings').update(data).eq('id', this.state.settings.id);
+            const { error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY).from('settings').update(data).eq('id', this.state.settings.id);
             
             if (error) throw error;
             
-            Toast.success('Settings saved');
-            Storage.remove('settings');
+            window.Utils.Toast.success('Settings saved');
+            window.Utils.Storage.remove('settings');
             App.loadSettings();
         } catch (error) {
-            Toast.error('Failed to save settings');
+            window.Utils.Toast.error('Failed to save settings');
         }
     }
 };

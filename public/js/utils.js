@@ -7,16 +7,18 @@
 // CONFIGURATION
 // ============================================
 const CONFIG = {
-    SUPABASE_URL: window.env?.SUPABASE_URL || 'YOUR_SUPABASE_URL',
-    SUPABASE_ANON_KEY: window.env?.SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY',
-    EDGE_FUNCTION_URL: window.env?.EDGE_FUNCTION_URL || 'https://YOUR_PROJECT.supabase.co/functions/v1/submit-order',
+    SUPABASE_URL: (typeof window !== 'undefined' && window.env && window.env.SUPABASE_URL) || 'YOUR_SUPABASE_URL',
+    SUPABASE_ANON_KEY: (typeof window !== 'undefined' && window.env && window.env.SUPABASE_ANON_KEY) || 'YOUR_SUPABASE_ANON_KEY',
+    EDGE_FUNCTION_URL: (typeof window !== 'undefined' && window.env && window.env.EDGE_FUNCTION_URL) || 'https://YOUR_PROJECT.supabase.co/functions/v1/submit-order',
     CACHE_VERSION: 'v1.0.0',
     CACHE_TTL: 5 * 60 * 1000, // 5 minutes
     DEBOUNCE_DELAY: 300
 };
 
-// Initialize Supabase client
-const supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+// Initialize Supabase client safely
+const supabase = (typeof window !== 'undefined' && window.supabase) 
+    ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
+    : null;
 
 // ============================================
 // SANITIZATION (XSS Prevention)

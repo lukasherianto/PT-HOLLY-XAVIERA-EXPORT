@@ -9,6 +9,11 @@ const Cart = {
     
     // Initialize cart from localStorage
     init() {
+        // Wait for Utils to be available
+        if (!window.Utils || !window.Utils.Storage) {
+            console.error('Utils.Storage not available yet');
+            return;
+        }
         this.load();
         this.updateUI();
         this.bindEvents();
@@ -16,6 +21,10 @@ const Cart = {
     
     // Load cart from localStorage
     load() {
+        if (!window.Utils || !window.Utils.Storage) {
+            this.items = [];
+            return;
+        }
         const stored = window.Utils.Storage.get(this.STORAGE_KEY);
         this.items = stored || [];
     },

@@ -14,6 +14,13 @@ const App = {
     
     async init() {
         try {
+            // Ensure Utils is available before proceeding
+            if (!window.Utils || !window.Utils.Storage) {
+                console.error('Utils not initialized properly');
+                this.hideLoading();
+                return;
+            }
+            
             // Load all initial data in parallel
             await Promise.all([
                 this.loadSettings(),
@@ -38,7 +45,9 @@ const App = {
             
         } catch (error) {
             console.error('App initialization error:', error);
-            Toast.error('Failed to load application data');
+            if (window.Utils && window.Utils.Toast) {
+                window.Utils.Toast.error('Failed to load application data');
+            }
             this.hideLoading();
         }
     },
@@ -59,14 +68,14 @@ const App = {
     async loadSettings() {
         try {
             // Check cache first
-            const cached = Storage.get('settings');
+            const cached = window.Utils.Storage.get('settings');
             if (cached) {
                 this.state.settings = cached;
                 this.renderSettings(cached);
                 return;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('settings')
                 .select('*')
                 .single();
@@ -74,7 +83,7 @@ const App = {
             if (error) throw error;
             
             this.state.settings = data;
-            Storage.set('settings', data);
+            window.Utils.Storage.set('settings', data);
             this.renderSettings(data);
             
         } catch (error) {
@@ -114,14 +123,14 @@ const App = {
     
     async loadBanners() {
         try {
-            const cached = Storage.get('banners');
+            const cached = window.Utils.Storage.get('banners');
             if (cached) {
                 this.state.banners = cached;
                 this.renderBanners(cached);
                 return;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('banners')
                 .select('*')
                 .eq('is_active', true)
@@ -130,7 +139,7 @@ const App = {
             if (error) throw error;
             
             this.state.banners = data;
-            Storage.set('banners', data);
+            window.Utils.Storage.set('banners', data);
             this.renderBanners(data);
             
         } catch (error) {
@@ -159,14 +168,14 @@ const App = {
     
     async loadProducts() {
         try {
-            const cached = Storage.get('products');
+            const cached = window.Utils.Storage.get('products');
             if (cached) {
                 this.state.products = cached;
                 this.renderProducts(cached);
                 return;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('products')
                 .select('id, name, slug, category, moq, description, image_url, is_active')
                 .eq('is_active', true)
@@ -175,7 +184,7 @@ const App = {
             if (error) throw error;
             
             this.state.products = data;
-            Storage.set('products', data, 10 * 60 * 1000); // 10 min cache
+            window.Utils.Storage.set('products', data, 10 * 60 * 1000); // 10 min cache
             this.renderProducts(data);
             
         } catch (error) {
@@ -253,21 +262,21 @@ const App = {
     
     async loadPageContents() {
         try {
-            const cached = Storage.get('pageContents');
+            const cached = window.Utils.Storage.get('pageContents');
             if (cached) {
                 this.state.pageContents = cached;
                 this.renderPageContents(cached);
                 return;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('page_contents')
                 .select('*');
             
             if (error) throw error;
             
             this.state.pageContents = data;
-            Storage.set('pageContents', data);
+            window.Utils.Storage.set('pageContents', data);
             this.renderPageContents(data);
             
         } catch (error) {
@@ -329,14 +338,14 @@ const App = {
     
     async loadArticles() {
         try {
-            const cached = Storage.get('articles');
+            const cached = window.Utils.Storage.get('articles');
             if (cached) {
                 this.state.articles = cached;
                 this.renderArticles(cached);
                 return;
             }
             
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
                 .from('articles')
                 .select('id, title, slug, content, featured_image, published_at')
                 .eq('is_published', true)
@@ -346,7 +355,7 @@ const App = {
             if (error) throw error;
             
             this.state.articles = data;
-            Storage.set('articles', data);
+            window.Utils.Storage.set('articles', data);
             this.renderArticles(data);
             
         } catch (error) {
@@ -488,13 +497,13 @@ const App = {
     
     // Public method to refresh products (used by admin)
     refreshProducts() {
-        Storage.remove('products');
+        window.Utils.Storage.remove('products');
         this.loadProducts();
     },
     
     // Public method to refresh articles (used by admin)
     refreshArticles() {
-        Storage.remove('articles');
+        window.Utils.Storage.remove('articles');
         this.loadArticles();
     }
 };
